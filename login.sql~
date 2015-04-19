@@ -1,0 +1,67 @@
+CREATE DATABASE db20;
+
+CREATE TABLE `db` (
+`id` int(4) NOT NULL auto_increment,
+`twitterid` int(15) NOT NULL,
+PRIMARY KEY (`id`)
+);
+
+CREATE DATABASE twitter;
+USE twitter;
+
+CREATE TABLE `twitter_ids` (
+`id` int(5) NOT NULL AUTO_INCREMENT,
+`twitterid` int(15) NOT NULL,
+`spidered` tinyint(1) NOT NULL DEFAULT 0,
+PRIMARY KEY (`id`),
+KEY (`spidered`),
+UNIQUE (`twitterid`)
+);
+
+# ------------------------------------------------------------
+
+CREATE TABLE `spidered_twitter_profiles` (
+`id` int(5) NOT NULL AUTO_INCREMENT,
+`twitterid` int(15) NOT NULL,
+`name` varchar(65) NOT NULL DEFAULT '',
+`spidered` tinyint(1) NOT NULL DEFAULT 0,
+`photo` varchar(255) NOT NULL DEFAULT '',
+`bio` text,
+`location` varchar(255),
+PRIMARY KEY (`id`),
+unique (`twitterid`)
+);
+
+# ------------------------------------------------------------
+
+CREATE TABLE `polls` (
+`t_id` int(5) NOT NULL AUTO_INCREMENT,
+`twitterid` int(15) NOT NULL,
+`poll` tinyint(1) NOT NULL DEFAULT '0',
+`member` int(3) NOT NULL ,
+`timest` int(12) NOT NULL,
+PRIMARY KEY (`t_id`),
+unique (`twitterid`,`member`)
+);
+
+# ------------------------------------------------------------
+
+CREATE TABLE `members` (
+`member_id` int(4) NOT NULL auto_increment,
+`status` varchar(15) NOT NULL DEFAULT 'inactive', 
+`username` varchar(15) NOT NULL UNIQUE default '',
+`password` varchar(15) NOT NULL default '',
+PRIMARY KEY (`member_id`)
+);
+
+INSERT INTO `members` VALUES (1, 'active', 'fethi', '1234');
+INSERT INTO `members` VALUES (2, 'active', 'admin', '1234');
+INSERT INTO `members` VALUES (3, 'inactive', 'naval', '1234');
+INSERT INTO `members` VALUES (4, 'active', 'rahul', '1234');
+
+UPDATE tusers SET poll='teen' WHERE twitterid = 635000000 and member = 1;
+UPDATE tusers SET poll='teen' WHERE twitterid = 635000002 and member = 1;
+UPDATE tusers SET poll='teen' WHERE twitterid = 635000004 and member = 1;
+UPDATE tusers SET poll='teen' WHERE twitterid = 635000006 and member = 1;
+UPDATE tusers SET poll='teen' WHERE twitterid = 635000008 and member = 1;
+
